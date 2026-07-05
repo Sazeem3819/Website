@@ -342,7 +342,6 @@ a {
   font-weight: 500;
   line-height: 1.28;
   letter-spacing: -0.015em;
-  max-width: 22ch;
   max-width: min(100%, 26em);
 }
 
