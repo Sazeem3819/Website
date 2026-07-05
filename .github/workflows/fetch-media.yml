@@ -1,0 +1,41 @@
+# One-shot helper: downloads the Seedance 2.0 clips generated via the
+# Higgsfield MCP and commits them (plus extracted poster frames) to this
+# branch. Run manually via workflow_dispatch; safe to re-run.
+name: Fetch generated media
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Seedance clips
+        run: |
+          mkdir -p public/videos public/posters
+          base="https://d8j0ntlcm91z4.cloudfront.net/user_3G4vT0leBNeViaTHBbsao3dtR2N"
+          curl -fsSL -o public/videos/control-room.mp4 "$base/hf_20260705_122426_6e77a604-ada9-45b6-88c0-1dda344f9cbb.mp4"
+          curl -fsSL -o public/videos/showroom-led.mp4 "$base/hf_20260705_122436_0e3f7679-7ab2-4282-b3a3-78d20e1d138b.mp4"
+          curl -fsSL -o public/videos/immersive-museum.mp4 "$base/hf_20260705_122415_3e7c85b8-c93c-4dd8-9bf2-b90488529bf4.mp4"
+          ls -lh public/videos
+
+      - name: Extract poster frames
+        run: |
+          for n in control-room showroom-led immersive-museum; do
+            ffmpeg -y -i "public/videos/$n.mp4" -vf "select=eq(n\,12),scale=1600:-2" -frames:v 1 -q:v 3 "public/posters/$n.jpg"
+          done
+          ls -lh public/posters
+
+      - name: Commit media to branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/videos public/posters
+          git diff --cached --quiet && echo "Nothing to commit" && exit 0
+          git commit -m "Add Seedance-generated video assets and poster frames"
+          git push
