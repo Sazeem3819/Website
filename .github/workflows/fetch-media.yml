@@ -54,10 +54,10 @@ jobs:
                 fi
               done
           }
-          fetch_query 'network operations center'
-          fetch_query 'security operations center'
-          fetch_query 'control room video wall'
-          fetch_query 'traffic management center operators'
+          fetch_query 'mission control center flight control room'
+          fetch_query 'emergency operations center video wall'
+          fetch_query 'power plant control room operators screens'
+          fetch_query 'dispatch center operators monitors'
           cat media-candidates/credits.txt
           ls -lh media-candidates
 
