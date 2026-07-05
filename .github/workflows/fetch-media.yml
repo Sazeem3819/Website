@@ -24,6 +24,9 @@ jobs:
           curl -fsSL -o public/videos/immersive-museum.mp4 "$base/hf_20260705_122415_3e7c85b8-c93c-4dd8-9bf2-b90488529bf4.mp4"
           ls -lh public/videos
 
+      - name: Install ffmpeg
+        run: sudo apt-get update -q && sudo apt-get install -y -q ffmpeg
+
       - name: Extract poster frames
         run: |
           for n in control-room showroom-led immersive-museum; do

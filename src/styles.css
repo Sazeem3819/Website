@@ -114,10 +114,10 @@ a {
 
 .logo-dot {
   position: absolute;
-  right: 0.34em;
+  right: 0.6em;
   top: 50%;
-  width: 0.22em;
-  height: 0.22em;
+  width: 0.2em;
+  height: 0.2em;
   transform: translateY(-50%);
   background: var(--accent);
   border-radius: 1px;
