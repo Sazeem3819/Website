@@ -27,8 +27,10 @@ export const SOLUTIONS = [
     kicker: 'Mission-critical command & control',
     description:
       '24/7 command-and-control environments built on redundant video walls, KVM and content management — where operators see everything, react instantly and never go dark.',
-    video: '/videos/control-room.mp4',
-    poster: '/posters/control-room.jpg',
+    // Real photograph: NASA JSC Mission Control (Wikimedia Commons, CC0).
+    image: '/images/control-room.jpg',
+    imageAlt:
+      'Mission-critical control room with a wall-spanning video wall and rows of operator consoles',
   },
   {
     id: 'immersive-rooms',

@@ -35,12 +35,16 @@ npm run preview  # serve the production build
 
 ## Media
 
-The three background clips were generated with **Seedance 2.0** (std mode, 1080p, 16:9,
-~8 s, no audio) via the Higgsfield MCP:
+Background clips generated with **Seedance 2.0** (std mode, 1080p, 16:9, ~8 s,
+no audio) via the Higgsfield MCP:
 
-1. `control-room.mp4` — control room transitioning into a server room
-2. `showroom-led.mp4` — LED screens in showroom / exhibition environments
-3. `immersive-museum.mp4` — immersive LED room for museums
+1. `showroom-led.mp4` — LED screens in showroom / exhibition environments
+2. `immersive-museum.mp4` — immersive LED room for museums
+
+The Control Room section uses a real photograph instead:
+`public/images/control-room.jpg` — NASA Johnson Space Center Mission Control
+(Wikimedia Commons, "20180706 Mission Control Johnson Space Center.jpg", CC0 /
+public domain).
 
 Videos lazy-load near the viewport, autoplay muted/looped/inline, pause off-screen,
 and fall back to poster frames where autoplay is unavailable. Animations respect

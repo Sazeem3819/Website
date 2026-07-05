@@ -63,7 +63,17 @@ function SolutionPanel({ solution }) {
       id={solution.id}
     >
       <div className="solution-media">
-        <LazyVideo src={solution.video} poster={solution.poster} />
+        {solution.image ? (
+          <img
+            className="lazy-video"
+            src={solution.image}
+            alt={solution.imageAlt || ''}
+            loading="lazy"
+            decoding="async"
+          />
+        ) : (
+          <LazyVideo src={solution.video} poster={solution.poster} />
+        )}
         <div className="solution-scrim" />
       </div>
       <div className="solution-copy container">
