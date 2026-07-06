@@ -22,7 +22,7 @@ jobs:
           fetch() { curl -fsSL -o "public/videos/$1.mp4" "$base/$2.mp4" || rm -f "public/videos/$1.mp4"; }
           fetch control-room "hf_20260706_111100_5711a9bf-adc4-4968-9859-ae90f6d92779"
           fetch led-lobby "hf_20260706_111104_633630bc-fc64-4d96-bbc2-7b9ca998e85d"
-          # Immersive museum clip (job 07f2b633) — URL added once the render completes.
+          fetch immersive-museum "hf_20260706_111224_07f2b633-d9d9-4f53-832d-ea12b6d3a5fa"
           ls -lh public/videos
 
       - name: Install ffmpeg
