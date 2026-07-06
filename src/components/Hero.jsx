@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import LazyVideo from './LazyVideo.jsx'
+import { asset } from '../data/solutions.js'
 
 export default function Hero() {
   const rootRef = useRef(null)
@@ -52,7 +53,10 @@ export default function Hero() {
   return (
     <section ref={rootRef} className="hero" id="top">
       <div className="hero-media">
-        <LazyVideo src="/videos/immersive-museum.mp4" poster="/posters/immersive-museum.jpg" />
+        <LazyVideo
+          src={asset('videos/immersive-museum.mp4')}
+          poster={asset('posters/immersive-museum.jpg')}
+        />
         <div className="hero-scrim" />
       </div>
       <div className="hero-content container">

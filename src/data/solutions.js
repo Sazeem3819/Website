@@ -1,3 +1,7 @@
+// Resolve public/ assets against the configured base so subpath hosting
+// (e.g. GitHub Pages) works.
+export const asset = (path) => import.meta.env.BASE_URL + path
+
 export const SOLUTIONS = [
   {
     id: 'led-displays',
@@ -6,8 +10,8 @@ export const SOLUTIONS = [
     kicker: 'Direct-view LED, indoor & outdoor',
     description:
       'Ultra-fine-pitch video walls, architectural media façades and outdoor spectaculars — engineered, calibrated and installed for flawless brightness, colour and longevity in every environment.',
-    video: '/videos/showroom-led.mp4',
-    poster: '/posters/showroom-led.jpg',
+    video: asset('videos/led-lobby.mp4'),
+    poster: asset('posters/led-lobby.jpg'),
   },
   {
     id: 'av-solutions',
@@ -16,9 +20,8 @@ export const SOLUTIONS = [
     kicker: 'Design, integration & support',
     description:
       'End-to-end audio-visual integration for corporate, hospitality, retail and public venues — from signal architecture and acoustics to room control, all delivered as one seamless system.',
-    video: '/videos/showroom-led.mp4',
-    poster: '/posters/showroom-led.jpg',
-    treatment: 'warm',
+    video: asset('videos/showroom-led.mp4'),
+    poster: asset('posters/showroom-led.jpg'),
   },
   {
     id: 'control-rooms',
@@ -27,10 +30,8 @@ export const SOLUTIONS = [
     kicker: 'Mission-critical command & control',
     description:
       '24/7 command-and-control environments built on redundant video walls, KVM and content management — where operators see everything, react instantly and never go dark.',
-    // Real photograph: NASA JSC Mission Control (Wikimedia Commons, CC0).
-    image: '/images/control-room.jpg',
-    imageAlt:
-      'Mission-critical control room with a wall-spanning video wall and rows of operator consoles',
+    video: asset('videos/control-room.mp4'),
+    poster: asset('posters/control-room.jpg'),
   },
   {
     id: 'immersive-rooms',
@@ -39,8 +40,8 @@ export const SOLUTIONS = [
     kicker: 'Experiential & cultural spaces',
     description:
       'Floor-to-ceiling immersive LED environments for museums, visitor centres and brand experiences — spaces where content surrounds the audience and stories become places.',
-    video: '/videos/immersive-museum.mp4',
-    poster: '/posters/immersive-museum.jpg',
+    video: asset('videos/immersive-museum.mp4'),
+    poster: asset('posters/immersive-museum.jpg'),
   },
 ]
 

@@ -1,7 +1,7 @@
-# One-shot helper: fetches freely-licensed control-room photo candidates
-# from Wikimedia Commons into media-candidates/ so one can be picked as the
-# Control Room section background. Run manually via workflow_dispatch.
-name: Fetch media candidates
+# One-shot helper: downloads the reference-driven Seedance 2.0 clips
+# (generated via the Higgsfield MCP from client-approved stills) and commits
+# them plus extracted poster frames. Run manually via workflow_dispatch.
+name: Fetch generated media
 
 on:
   workflow_dispatch:
@@ -15,57 +15,32 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Fetch control-room photo candidates from Wikimedia Commons
+      - name: Download Seedance clips
         run: |
-          mkdir -p media-candidates
-          : > media-candidates/credits.txt
-          i=0
-          fetch_query() {
-            local q="$1"
-            curl -fsSL --get 'https://commons.wikimedia.org/w/api.php' \
-              --data-urlencode 'action=query' \
-              --data-urlencode 'generator=search' \
-              --data-urlencode "gsrsearch=$q filemime:jpeg" \
-              --data-urlencode 'gsrnamespace=6' \
-              --data-urlencode 'gsrlimit=8' \
-              --data-urlencode 'prop=imageinfo' \
-              --data-urlencode 'iiprop=url|size|extmetadata' \
-              --data-urlencode 'iiurlwidth=1920' \
-              --data-urlencode 'format=json' \
-              -H 'User-Agent: TSSCO-website-build/1.0 (contact: repo owner)' \
-            | jq -r '
-                .query.pages // {} | to_entries[] | .value
-                | select(.imageinfo[0].width >= 1600)
-                | select((.imageinfo[0].height / .imageinfo[0].width) < 0.85)
-                | [ .title,
-                    (.imageinfo[0].thumburl // .imageinfo[0].url),
-                    (.imageinfo[0].extmetadata.LicenseShortName.value // "unknown"),
-                    ((.imageinfo[0].extmetadata.Artist.value // "unknown") | gsub("<[^>]*>"; "") | gsub("\\n"; " "))
-                  ] | @tsv' \
-            | head -4 \
-            | while IFS=$'\t' read -r title url license artist; do
-                i=$((i+1))
-                n=$(printf '%02d' "$i")
-                out="media-candidates/candidate-$n-$(echo "$q" | tr ' ' '-' | tr -cd 'a-z-').jpg"
-                if curl -fsSL -o "$out" -H 'User-Agent: TSSCO-website-build/1.0' "$url"; then
-                  echo "$out | $title | $license | $artist | $url" >> media-candidates/credits.txt
-                else
-                  rm -f "$out"
-                fi
-              done
-          }
-          fetch_query 'mission control center flight control room'
-          fetch_query 'emergency operations center video wall'
-          fetch_query 'power plant control room operators screens'
-          fetch_query 'dispatch center operators monitors'
-          cat media-candidates/credits.txt
-          ls -lh media-candidates
+          mkdir -p public/videos public/posters
+          base="https://d8j0ntlcm91z4.cloudfront.net/user_3G4vT0leBNeViaTHBbsao3dtR2N"
+          fetch() { curl -fsSL -o "public/videos/$1.mp4" "$base/$2.mp4" || rm -f "public/videos/$1.mp4"; }
+          fetch control-room "hf_20260706_111100_5711a9bf-adc4-4968-9859-ae90f6d92779"
+          fetch led-lobby "hf_20260706_111104_633630bc-fc64-4d96-bbc2-7b9ca998e85d"
+          # Immersive museum clip (job 07f2b633) — URL added once the render completes.
+          ls -lh public/videos
 
-      - name: Commit candidates to branch
+      - name: Install ffmpeg
+        run: sudo apt-get update -q && sudo apt-get install -y -q ffmpeg
+
+      - name: Extract poster frames
+        run: |
+          for n in control-room led-lobby immersive-museum; do
+            [ -f "public/videos/$n.mp4" ] || continue
+            ffmpeg -y -i "public/videos/$n.mp4" -vf "select=eq(n\,12),scale=1600:-2" -frames:v 1 -q:v 3 "public/posters/$n.jpg"
+          done
+          ls -lh public/posters
+
+      - name: Commit media to branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add media-candidates
+          git add public/videos public/posters
           git diff --cached --quiet && echo "Nothing to commit" && exit 0
-          git commit -m "Add control-room photo candidates from Wikimedia Commons"
+          git commit -m "Add reference-driven Seedance video assets and posters"
           git push
