@@ -40,39 +40,37 @@ Every media slot is a `[data-media]` frame in `index.html` with:
 - `data-poster` — cinematic still (currently generated with Nano Banana Pro on
   Higgsfield, hot-linked from the Higgsfield CDN). Posters get a slow Ken Burns
   drift so the panels feel alive even without video.
-- `data-video` *(optional)* — local MP4 path. The video lazy-loads near the
-  viewport, autoplays muted/looped/inline, fades in over the poster when it
-  actually plays, and silently falls back to the poster if the file is missing
-  or autoplay is blocked. Videos pause off-screen.
+- `data-video` *(optional)* — local MP4 path, tried first. The video lazy-loads
+  near the viewport, autoplays muted/looped/inline, fades in over the poster
+  when it actually plays, and pauses off-screen.
+- `data-video-remote` *(optional)* — CDN copy of the same clip, used
+  automatically when the local file is absent. If both fail (or autoplay is
+  blocked) the poster simply remains.
 
-### Localizing the posters (recommended before production)
+### Video assets (generated ✓)
 
-The posters are hot-linked because this build environment's egress policy blocked
-downloading them. From any normal machine:
+The three clips were generated with **Seedance 2.0** on Higgsfield (std mode,
+1080p, 16:9, no audio, 8 s) and are currently streamed from the Higgsfield CDN
+via `data-video-remote`:
+
+| Local path (preferred when present) | Clip |
+| --- | --- |
+| `assets/videos/control-room-server-room.mp4` | Control room with giant LED wall → server room with racks and controllers |
+| `assets/videos/showroom-exhibition-led.mp4` | LED screens in modern showroom / exhibition environments |
+| `assets/videos/immersive-museum-room.mp4` | Immersive LED room designed for museums |
+
+### Localizing all assets (recommended before production)
+
+Posters and videos are hot-linked because this build environment's egress
+policy blocked downloading them. From any normal machine:
 
 ```sh
 ./scripts/localize-assets.sh
 ```
 
-That downloads the four stills into `assets/posters/` and rewrites `index.html`
-to reference the local copies.
-
-### Generating the three videos (pending — needs credits)
-
-The brief calls for three Seedance 2.0 clips (std mode, 1080p, 16:9, no audio,
-~8 s). At the time of this build the Higgsfield account had **10 credits** and
-each clip at that spec costs **72 credits (216 total)** — so generation is
-blocked until the account is topped up. Once credits are available, generate
-with Seedance 2.0 (`std`, `1080p`, `16:9`, `generate_audio: false`, `duration: 8`):
-
-| Drop into | Prompt brief |
-| --- | --- |
-| `assets/videos/control-room-server-room.mp4` | Open on a control room with a giant LED video wall and operator consoles, then transition into a server room revealing racks and controllers |
-| `assets/videos/showroom-exhibition-led.mp4` | LED screens displayed in modern showrooms and exhibition environments |
-| `assets/videos/immersive-museum-room.mp4` | An LED immersive room designed for museums |
-
-Drop the MP4s at those exact paths — the site picks them up automatically, no
-code changes needed. (H.264, ~8 Mbps or lower recommended for web delivery.)
+That downloads the four stills into `assets/posters/` (rewriting `index.html`
+to the local copies) and the three MP4s into `assets/videos/`, which the site
+then prefers automatically — no code changes needed.
 
 ## Structure
 

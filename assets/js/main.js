@@ -65,6 +65,7 @@
   document.querySelectorAll("[data-media]").forEach(function (frame) {
     var posterSrc = frame.getAttribute("data-poster");
     var videoSrc = frame.getAttribute("data-video");
+    var videoRemote = frame.getAttribute("data-video-remote");
 
     if (posterSrc) {
       var img = new Image();
@@ -75,7 +76,7 @@
       frame.appendChild(img);
     }
 
-    if (!videoSrc) return;
+    if (!videoSrc && !videoRemote) return;
 
     var loaded = false;
     var video = null;
@@ -91,14 +92,21 @@
       video.setAttribute("muted", "");
       video.preload = "auto";
       video.addEventListener("error", function () {
-        // Missing/unsupported file: drop the element, poster remains
+        // Local file missing: fall back to the remote copy once, then
+        // drop the element so the poster remains.
+        if (videoRemote && video.src.indexOf(videoRemote) === -1) {
+          video.src = videoRemote;
+          var p = video.play();
+          if (p && p.catch) p.catch(function () {});
+          return;
+        }
         if (video.parentNode) video.parentNode.removeChild(video);
         video = null;
       }, true);
       video.addEventListener("playing", function () {
         video.classList.add("is-playing");
       });
-      video.src = videoSrc;
+      video.src = videoSrc || videoRemote;
       frame.insertBefore(video, frame.firstChild);
       var p = video.play();
       if (p && p.catch) p.catch(function () { /* autoplay blocked: poster remains */ });
