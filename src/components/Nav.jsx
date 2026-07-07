@@ -1,22 +1,30 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { Link, NavLink } from 'react-router-dom'
 
 function Logo() {
   return (
-    <a href="#top" className="logo" aria-label="TSSCO — home">
+    <Link to="/" className="logo" aria-label="TSSCO — home">
       <span className="logo-word">
         TSSC
         <span className="logo-o">
           O<span className="logo-dot" />
         </span>
       </span>
-    </a>
+    </Link>
   )
 }
+
+const LINKS = [
+  ['What We Do', '/services'],
+  ['Industries', '/industries'],
+  ['Our Work', '/work'],
+  ['Insights', '/insights'],
+  ['About', '/about'],
+]
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
-  const navRef = useRef(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -30,28 +38,21 @@ export default function Nav() {
     return () => document.documentElement.classList.remove('menu-open')
   }, [open])
 
-  const links = [
-    ['Solutions', '#solutions'],
-    ['Clients', '#clients'],
-    ['Contact', '#contact'],
-  ]
+  const close = () => setOpen(false)
 
   return (
-    <header
-      ref={navRef}
-      className={`nav ${scrolled ? 'nav--scrolled' : ''} ${open ? 'nav--open' : ''}`}
-    >
+    <header className={`nav ${scrolled ? 'nav--scrolled' : ''} ${open ? 'nav--open' : ''}`}>
       <div className="nav-inner">
         <Logo />
         <nav className="nav-links" aria-label="Primary">
-          {links.map(([label, href]) => (
-            <a key={href} href={href} onClick={() => setOpen(false)}>
+          {LINKS.map(([label, to]) => (
+            <NavLink key={to} to={to} onClick={close}>
               {label}
-            </a>
+            </NavLink>
           ))}
-          <a href="#contact" className="nav-cta" onClick={() => setOpen(false)}>
+          <Link to="/contact" className="nav-cta" onClick={close}>
             Start a project
-          </a>
+          </Link>
         </nav>
         <button
           className="nav-burger"
@@ -64,14 +65,14 @@ export default function Nav() {
         </button>
       </div>
       <div className="nav-drawer" aria-hidden={!open}>
-        {links.map(([label, href]) => (
-          <a key={href} href={href} onClick={() => setOpen(false)}>
+        {LINKS.map(([label, to]) => (
+          <NavLink key={to} to={to} onClick={close}>
             {label}
-          </a>
+          </NavLink>
         ))}
-        <a href="#contact" className="nav-cta" onClick={() => setOpen(false)}>
+        <Link to="/contact" className="nav-cta" onClick={close}>
           Start a project
-        </a>
+        </Link>
       </div>
     </header>
   )

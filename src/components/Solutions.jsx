@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import LazyVideo from './LazyVideo.jsx'
 import { SOLUTIONS } from '../data/solutions.js'
@@ -81,9 +82,9 @@ function SolutionPanel({ solution }) {
         <p className="solution-kicker section-eyebrow">{solution.kicker}</p>
         <h3 className="solution-title">{solution.title}</h3>
         <p className="solution-desc">{solution.description}</p>
-        <a className="solution-link" href="#contact">
-          Discuss your project <span aria-hidden="true">→</span>
-        </a>
+        <Link className="solution-link" to={solution.href || '/services'}>
+          Explore this service <span aria-hidden="true">→</span>
+        </Link>
       </div>
     </article>
   )

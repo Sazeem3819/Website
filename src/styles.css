@@ -641,16 +641,15 @@ a {
 
 .footer {
   border-top: 1px solid var(--line);
-  padding: 3.5rem 0;
+  padding: 4rem 0 2.5rem;
   background: var(--bg-raised);
 }
 
-.footer-inner {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.4fr 1.2fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
 }
 
 .footer-brand p {
@@ -659,23 +658,490 @@ a {
   color: var(--ink-faint);
 }
 
-.footer-links {
-  display: flex;
-  gap: 2rem;
+.footer-loc {
   font-family: var(--font-display);
-  font-size: 0.82rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--ink-dim);
+  font-size: 0.72rem !important;
 }
 
-.footer-links a:hover {
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.footer-col h2 {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 0.4rem;
+}
+
+.footer-col a {
+  font-size: 0.92rem;
+  color: var(--ink-dim);
+  transition: color 0.3s ease;
+}
+
+.footer-col a:hover {
   color: var(--ink);
 }
 
 .footer-copy {
   font-size: 0.8rem;
   color: var(--ink-faint);
+  border-top: 1px solid var(--line);
+  padding-top: 1.8rem;
+}
+
+/* —— page hero (inner pages) —— */
+
+.page-hero {
+  position: relative;
+  min-height: 62svh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  padding-top: calc(var(--nav-h) + 3rem);
+  background: var(--bg-raised);
+}
+
+.page-hero--media {
+  min-height: 74svh;
+}
+
+.page-hero-media {
+  position: absolute;
+  inset: -6% 0;
+  will-change: transform;
+}
+
+.page-hero-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(8, 9, 11, 0.6) 0%, rgba(8, 9, 11, 0.25) 45%, rgba(8, 9, 11, 0.92) 100%),
+    linear-gradient(100deg, rgba(8, 9, 11, 0.5) 0%, transparent 55%);
+}
+
+.page-hero-content {
+  position: relative;
+  z-index: 2;
+  padding-bottom: clamp(3rem, 8vh, 5.5rem);
+}
+
+.page-hero-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.7rem, 7vw, 6rem);
+  line-height: 1.03;
+  letter-spacing: -0.025em;
+}
+
+.page-hero-title em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.page-hero-intro {
+  margin-top: 1.8rem;
+  max-width: 36rem;
+  color: var(--ink-dim);
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+}
+
+/* —— services page —— */
+
+.service-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  padding: 2.4rem 0;
+  border-bottom: 1px solid var(--line);
+  width: var(--container);
+}
+
+.service-jump a {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.55em 1.2em;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.service-jump a:hover {
+  color: var(--ink);
+  border-color: var(--accent);
+}
+
+.service-rows {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4rem, 10vh, 7rem);
+  padding: clamp(4rem, 10vh, 7rem) 0;
+}
+
+.service-row {
+  width: var(--container);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+  scroll-margin-top: calc(var(--nav-h) + 1rem);
+}
+
+.service-row--flip {
+  direction: rtl;
+}
+
+.service-row--flip > * {
+  direction: ltr;
+}
+
+.service-row-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.service-row-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 3.6vw, 3rem);
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.service-row-summary {
+  color: var(--ink-dim);
+  margin-bottom: 1.4rem;
+}
+
+.service-row-list {
+  list-style: none;
+  margin-bottom: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.service-row-list li {
+  position: relative;
+  padding-left: 1.3rem;
+  color: var(--ink-dim);
+  font-size: 0.95rem;
+}
+
+.service-row-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.52em;
+  width: 0.45em;
+  height: 0.45em;
+  border-radius: 1px;
+  background: var(--accent);
+}
+
+.service-row .solution-index {
+  font-size: clamp(2.6rem, 5vw, 4rem);
+  margin-bottom: 1rem;
+}
+
+/* —— cards (industries / work / insights) —— */
+
+.industry-grid,
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.6rem;
+  padding: clamp(4rem, 9vh, 6rem) 0;
+}
+
+.industry-card,
+.project-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--bg-raised);
+  transition: transform 0.35s ease, border-color 0.35s ease;
+}
+
+.industry-card:hover,
+.project-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(40, 85, 255, 0.5);
+}
+
+.industry-card-media,
+.project-card-media {
+  aspect-ratio: 16 / 9;
+  background-size: cover;
+  background-position: center;
+}
+
+.industry-card-body,
+.project-card-body {
+  padding: 1.6rem;
+}
+
+.industry-card-body h2,
+.project-card-body h2 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 0.6rem;
+}
+
+.industry-card-body p,
+.project-card-body p {
+  color: var(--ink-dim);
+  font-size: 0.92rem;
+}
+
+.project-card-sector {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.7rem;
+}
+
+.insight-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.6rem;
+  padding: clamp(4rem, 9vh, 6rem) 0;
+}
+
+.insight-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 2.2rem;
+  background: var(--bg-raised);
+  transition: border-color 0.35s ease;
+}
+
+.insight-card:hover {
+  border-color: rgba(40, 85, 255, 0.5);
+}
+
+.insight-card h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.15;
+  margin-bottom: 0.8rem;
+}
+
+.insight-card p {
+  color: var(--ink-dim);
+  font-size: 0.95rem;
+}
+
+.insight-card-more {
+  display: inline-block;
+  margin-top: 1.4rem;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* —— about page —— */
+
+.about-story {
+  padding: clamp(4rem, 10vh, 7rem) 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+
+.about-story p {
+  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+  line-height: 1.7;
+  color: var(--ink-dim);
+}
+
+.value-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.6rem;
+  padding: clamp(2rem, 6vh, 4rem) 0 clamp(4rem, 9vh, 6rem);
+}
+
+.value-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 2rem;
+  background: var(--bg-raised);
+}
+
+.value-card h2 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.7rem;
+}
+
+.value-card p {
+  color: var(--ink-dim);
+  font-size: 0.94rem;
+}
+
+/* —— contact page —— */
+
+.contact-page-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  padding: clamp(4rem, 9vh, 6rem) 0;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
+
+.contact-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.contact-form input,
+.contact-form textarea {
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.95em 1.1em;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  resize: vertical;
+  transition: border-color 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.contact-form .btn {
+  align-self: flex-start;
+  border: 0;
+  cursor: pointer;
+}
+
+.contact-form-note {
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+}
+
+.contact-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.contact-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1.5rem 1.7rem;
+  background: var(--bg-raised);
+}
+
+.contact-card h2 {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 0.5rem;
+}
+
+.contact-card a,
+.contact-card p {
+  color: var(--ink);
+  font-size: 1.02rem;
+}
+
+.contact-card a:hover {
+  color: var(--accent);
+}
+
+/* —— CTA band —— */
+
+.cta-band {
+  border-top: 1px solid var(--line);
+  padding: clamp(4.5rem, 11vh, 8rem) 0;
+  background:
+    radial-gradient(60% 120% at 50% 120%, rgba(40, 85, 255, 0.18) 0%, transparent 70%),
+    var(--bg);
+}
+
+.cta-band-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.cta-band-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3.6vw, 2.8rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  max-width: 22ch;
+}
+
+/* —— nav active state —— */
+
+.nav-links a.active:not(.nav-cta),
+.nav-drawer a.active:not(.nav-cta) {
+  color: var(--ink);
+}
+
+.nav-links a.active:not(.nav-cta) {
+  position: relative;
+}
+
+.nav-links a.active:not(.nav-cta)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.55em;
+  height: 2px;
+  background: var(--accent);
 }
 
 /* —— responsive —— */
@@ -727,6 +1193,35 @@ a {
   .solution {
     align-items: flex-end;
     min-height: 92svh;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .service-row,
+  .service-row--flip {
+    grid-template-columns: 1fr;
+    direction: ltr;
+  }
+
+  .industry-grid,
+  .project-grid,
+  .value-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .insight-grid,
+  .about-story,
+  .contact-page-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 861px) and (max-width: 1180px) {
+  .industry-grid,
+  .project-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 

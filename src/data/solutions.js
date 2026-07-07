@@ -5,6 +5,7 @@ export const asset = (path) => import.meta.env.BASE_URL + path
 export const SOLUTIONS = [
   {
     id: 'led-displays',
+    href: '/services#led-displays',
     index: '01',
     title: 'LED Displays',
     kicker: 'Direct-view LED, indoor & outdoor',
@@ -15,6 +16,7 @@ export const SOLUTIONS = [
   },
   {
     id: 'av-solutions',
+    href: '/services#av-solutions',
     index: '02',
     title: 'AV Solutions',
     kicker: 'Design, integration & support',
@@ -25,6 +27,7 @@ export const SOLUTIONS = [
   },
   {
     id: 'control-rooms',
+    href: '/services#command-control',
     index: '03',
     title: 'Control Room Solutions',
     kicker: 'Mission-critical command & control',
@@ -35,6 +38,7 @@ export const SOLUTIONS = [
   },
   {
     id: 'immersive-rooms',
+    href: '/services#immersive-experiences',
     index: '04',
     title: 'Immersive Rooms',
     kicker: 'Experiential & cultural spaces',

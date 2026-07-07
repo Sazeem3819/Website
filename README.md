@@ -1,11 +1,24 @@
-# TSSCO — Cinematic Scroll Website
+# TSSCO — Cinematic Website
 
 Marketing website for **TSSCO** (Saudi Arabia) — LED Displays · AV Solutions · Command & Control.
-Dark, editorial, scroll-driven single page with full-bleed video sections.
+Dark, editorial, scroll-driven multi-page site with full-bleed video sections, structured
+after premium AV-integrator sites (Electrosonic-style architecture, original content and media).
+
+## Pages
+
+| Route | Page |
+| --- | --- |
+| `/` | Home — cinematic scroll narrative |
+| `/services` | What We Do — Design & Consulting, Build & Integration, Managed Services, LED Displays, Command & Control, AV, Immersive |
+| `/industries` | Industries — Government, Corporate, Museums, Real Estate, Retail, Energy |
+| `/work` | Our Work — representative projects (placeholders) |
+| `/insights` | Insights — article placeholders |
+| `/about` | About — story, values, stats, clients |
+| `/contact` | Contact — enquiry form (mailto) + details |
 
 ## Stack
 
-- [Vite](https://vitejs.dev) + React 18
+- [Vite](https://vitejs.dev) + React 18 + React Router
 - [GSAP](https://gsap.com) + ScrollTrigger — scroll-linked reveals, parallax, aperture transitions
 - [Lenis](https://lenis.darkroom.engineering) — smooth inertial scrolling
 - Space Grotesk / Inter via Google Fonts
