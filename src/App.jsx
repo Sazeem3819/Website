@@ -65,7 +65,7 @@ export default function App() {
   }, [])
 
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
+    <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
       <ScrollManager lenisRef={lenisRef} />
       <Nav />
       <Routes>
