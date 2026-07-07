@@ -1,0 +1,40 @@
+# Builds the site and publishes dist/ to the gh-pages branch, serving the
+# public demo at https://sazeem3819.github.io/Website/
+name: Deploy demo to GitHub Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/tssco-cinematic-scroll-sdviwz]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Build
+        run: |
+          npm ci
+          VITE_BASE=/Website/ npm run build
+          # SPA fallback so deep links (/services, /work, …) resolve on Pages.
+          cp dist/index.html dist/404.html
+
+      - name: Publish to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          force_orphan: true
