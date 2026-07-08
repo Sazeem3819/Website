@@ -49,4 +49,18 @@ export const SOLUTIONS = [
   },
 ]
 
-export const CLIENTS = ['ARAMCO', 'DAR Global', 'MOI', 'SABB', 'Saudi Bonyan']
+export const CLIENTS = [
+  'ARAMCO',
+  'SABB',
+  'SNB',
+  'SABIC',
+  'Saudi Electricity Company',
+  'Dr. Soliman Fakeeh Hospital',
+  'Saudi German Hospital',
+  'MOI',
+  'DAR Global',
+  'Saudi Bonyan',
+  'stc',
+  'Ministry of Health',
+  'King Faisal Specialist Hospital',
+]

@@ -42,7 +42,7 @@ export default function Manifesto() {
   return (
     <section ref={rootRef} className="manifesto">
       <div className="container">
-        <p className="manifesto-meta section-eyebrow">TSSCO — Riyadh, Saudi Arabia</p>
+        <p className="manifesto-meta section-eyebrow">TSSCO — Jeddah, Saudi Arabia</p>
         <p className="manifesto-text">
           {STATEMENT.split(' ').map((word, i) => (
             <span key={i} className="manifesto-word">

@@ -153,51 +153,6 @@ export const INDUSTRIES = [
   },
 ]
 
-export const PROJECTS = [
-  {
-    id: 'p1',
-    sector: 'Government',
-    title: 'National operations center',
-    blurb: 'A 24/7 command environment with a 28-metre fine-pitch LED wall and 40 operator positions.',
-    poster: asset('posters/control-room.jpg'),
-  },
-  {
-    id: 'p2',
-    sector: 'Real Estate',
-    title: 'Developer sales gallery',
-    blurb: 'Curved LED and interactive models bringing a masterplan to life for international buyers.',
-    poster: asset('posters/led-lobby.jpg'),
-  },
-  {
-    id: 'p3',
-    sector: 'Culture',
-    title: 'Immersive museum gallery',
-    blurb: 'A 360° LED room with floor projection telling the story of the Kingdom to 2,000 visitors a day.',
-    poster: asset('posters/immersive-museum.jpg'),
-  },
-  {
-    id: 'p4',
-    sector: 'Corporate',
-    title: 'Headquarters experience',
-    blurb: 'Lobby media wall, briefing center and 60 meeting rooms unified under one control platform.',
-    poster: asset('posters/showroom-led.jpg'),
-  },
-  {
-    id: 'p5',
-    sector: 'Banking',
-    title: 'Trading floor & signage network',
-    blurb: 'Real-time market visualisation and enterprise signage across a regional headquarters.',
-    poster: asset('posters/control-room.jpg'),
-  },
-  {
-    id: 'p6',
-    sector: 'Exhibitions',
-    title: 'Giga-project pavilion',
-    blurb: 'A touring exhibition with modular LED architecture and show-controlled storytelling.',
-    poster: asset('posters/led-lobby.jpg'),
-  },
-]
-
 export const INSIGHTS = [
   {
     id: 'i1',

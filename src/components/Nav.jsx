@@ -17,7 +17,6 @@ function Logo() {
 const LINKS = [
   ['What We Do', '/services'],
   ['Industries', '/industries'],
-  ['Our Work', '/work'],
   ['Insights', '/insights'],
   ['About', '/about'],
 ]

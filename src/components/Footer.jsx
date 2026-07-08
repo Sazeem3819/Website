@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { CONTACT } from '../data/contact.js'
 
 const COLUMNS = [
   {
@@ -6,7 +7,6 @@ const COLUMNS = [
     links: [
       ['What We Do', '/services'],
       ['Industries', '/industries'],
-      ['Our Work', '/work'],
       ['Insights', '/insights'],
       ['About', '/about'],
       ['Contact', '/contact'],
@@ -37,7 +37,14 @@ export default function Footer() {
             </span>
           </span>
           <p>Connecting vision with technology.</p>
-          <p className="footer-loc">Riyadh · Kingdom of Saudi Arabia</p>
+          <a
+            className="footer-loc"
+            href={CONTACT.mapsHref}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {CONTACT.addressShort}
+          </a>
         </div>
         {COLUMNS.map((col) => (
           <nav key={col.heading} className="footer-col" aria-label={col.heading}>
@@ -51,8 +58,14 @@ export default function Footer() {
         ))}
         <div className="footer-col">
           <h2>Get in touch</h2>
-          <a href="mailto:info@tssco.org">info@tssco.org</a>
-          <a href="tel:+966000000000">+966 (0) 00 000 0000</a>
+          <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+          <a href={CONTACT.phoneHref}>{CONTACT.phoneDisplay}</a>
+          <a href={CONTACT.whatsappHref} target="_blank" rel="noopener noreferrer">
+            WhatsApp
+          </a>
+          <a href={CONTACT.mapsHref} target="_blank" rel="noopener noreferrer">
+            {CONTACT.addressLines.join(', ')}
+          </a>
         </div>
       </div>
       <div className="container footer-copy">

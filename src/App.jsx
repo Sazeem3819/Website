@@ -9,7 +9,6 @@ import Footer from './components/Footer.jsx'
 import Home from './pages/Home.jsx'
 import Services from './pages/Services.jsx'
 import Industries from './pages/Industries.jsx'
-import Work from './pages/Work.jsx'
 import Insights from './pages/Insights.jsx'
 import About from './pages/About.jsx'
 import Contact from './pages/Contact.jsx'
@@ -72,7 +71,6 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/services" element={<Services />} />
         <Route path="/industries" element={<Industries />} />
-        <Route path="/work" element={<Work />} />
         <Route path="/insights" element={<Insights />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />

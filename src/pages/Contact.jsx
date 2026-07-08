@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import PageHero from '../components/PageHero.jsx'
 import useReveal from '../components/useReveal.js'
+import { CONTACT } from '../data/contact.js'
 
 export default function Contact() {
   const ref = useReveal('.contact-page-grid > *')
@@ -10,7 +11,7 @@ export default function Contact() {
     e.preventDefault()
     const subject = encodeURIComponent(`Project enquiry — ${form.name}`)
     const body = encodeURIComponent(`${form.message}\n\n— ${form.name} (${form.email})`)
-    window.location.href = `mailto:info@tssco.org?subject=${subject}&body=${body}`
+    window.location.href = `mailto:${CONTACT.email}?subject=${subject}&body=${body}`
   }
 
   const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }))
@@ -50,15 +51,27 @@ export default function Contact() {
         <aside className="contact-cards">
           <div className="contact-card">
             <h2>Email</h2>
-            <a href="mailto:info@tssco.org">info@tssco.org</a>
+            <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
           </div>
           <div className="contact-card">
-            <h2>Phone</h2>
-            <a href="tel:+966000000000">+966 (0) 00 000 0000</a>
+            <h2>Phone &amp; WhatsApp</h2>
+            <a href={CONTACT.phoneHref}>{CONTACT.phoneDisplay}</a>
+            <br />
+            <a href={CONTACT.whatsappHref} target="_blank" rel="noopener noreferrer">
+              Chat on WhatsApp →
+            </a>
           </div>
           <div className="contact-card">
             <h2>Office</h2>
-            <p>Riyadh, Kingdom of Saudi Arabia</p>
+            <a href={CONTACT.mapsHref} target="_blank" rel="noopener noreferrer">
+              {CONTACT.addressLines.map((line) => (
+                <span key={line}>
+                  {line}
+                  <br />
+                </span>
+              ))}
+              <span className="contact-card-maps">Open in Google Maps →</span>
+            </a>
           </div>
           <div className="contact-card">
             <h2>Hours</h2>

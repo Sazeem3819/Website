@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
+import { CONTACT } from '../data/contact.js'
 
 export default function Contact() {
   const rootRef = useRef(null)
@@ -52,14 +53,29 @@ export default function Contact() {
           bring the engineering.
         </p>
         <div className="contact-actions">
-          <a className="btn btn-primary" href="mailto:info@tssco.org">
-            info@tssco.org
+          <a className="btn btn-primary" href={`mailto:${CONTACT.email}`}>
+            {CONTACT.email}
           </a>
-          <a className="btn btn-ghost" href="tel:+966000000000">
-            +966 (0) 00 000 0000
+          <a className="btn btn-ghost" href={CONTACT.phoneHref}>
+            {CONTACT.phoneDisplay}
+          </a>
+          <a
+            className="btn btn-ghost"
+            href={CONTACT.whatsappHref}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            WhatsApp
           </a>
         </div>
-        <p className="contact-loc">Riyadh · Kingdom of Saudi Arabia</p>
+        <a
+          className="contact-loc"
+          href={CONTACT.mapsHref}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {CONTACT.addressShort}
+        </a>
       </div>
     </section>
   )
