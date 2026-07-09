@@ -77,7 +77,7 @@ export default function Hero() {
         <p className="hero-sub">
           TSSCO designs, engineers and delivers the Kingdom&rsquo;s most ambitious
           visual environments — from mission-critical control rooms to immersive
-          cultural experiences.
+          cultural experiences — backed by 24/7 support.
         </p>
         <div className="hero-scroll-hint" aria-hidden="true">
           <span className="hero-scroll-track">

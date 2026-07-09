@@ -1,5 +1,4 @@
 import PageHero from '../components/PageHero.jsx'
-import Stats from '../components/Stats.jsx'
 import Clients from '../components/Clients.jsx'
 import CtaBand from '../components/CtaBand.jsx'
 import useReveal from '../components/useReveal.js'
@@ -59,7 +58,6 @@ export default function About() {
           </article>
         ))}
       </section>
-      <Stats />
       <Clients />
       <CtaBand title="Meet the team behind the screens." />
     </main>
