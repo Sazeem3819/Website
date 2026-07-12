@@ -3,40 +3,47 @@ import CtaBand from '../components/CtaBand.jsx'
 import useReveal from '../components/useReveal.js'
 import { INDUSTRIES } from '../data/services.js'
 import { asset } from '../data/solutions.js'
+import { useLang } from '../i18n/LanguageContext.jsx'
 
 export default function Industries() {
+  const { t } = useLang()
   const ref = useReveal('.industry-card')
+
   return (
     <main>
       <PageHero
-        eyebrow="Who we serve"
+        eyebrow={t.industriesPage.eyebrow}
         title={
           <>
-            Every sector.
+            {t.industriesPage.title1}
             <br />
-            The same <em>standard.</em>
+            {t.industriesPage.title2}
+            <em>{t.industriesPage.titleEm}</em>
           </>
         }
-        intro="From government command centers to cultural destinations, we bring the same engineering discipline to every environment we touch."
+        intro={t.industriesPage.intro}
         video={asset('videos/control-room.mp4')}
         poster={asset('posters/control-room.jpg')}
       />
-      <section className="container industry-grid">
-        {INDUSTRIES.map((ind) => (
-          <article key={ind.id} className="industry-card">
-            <div
-              className="industry-card-media"
-              style={{ backgroundImage: `url(${ind.poster})` }}
-              aria-hidden="true"
-            />
-            <div className="industry-card-body">
-              <h2>{ind.title}</h2>
-              <p>{ind.blurb}</p>
-            </div>
-          </article>
-        ))}
+      <section className="container industry-grid" ref={ref}>
+        {INDUSTRIES.map((ind) => {
+          const copy = t.industriesPage.items[ind.id]
+          return (
+            <article key={ind.id} className="industry-card">
+              <div
+                className="industry-card-media"
+                style={{ backgroundImage: `url(${ind.poster})` }}
+                aria-hidden="true"
+              />
+              <div className="industry-card-body">
+                <h2>{copy.title}</h2>
+                <p>{copy.blurb}</p>
+              </div>
+            </article>
+          )
+        })}
       </section>
-      <CtaBand title="Working in a sector we haven't listed? Talk to us anyway." />
+      <CtaBand title={t.industriesPage.cta} />
     </main>
   )
 }

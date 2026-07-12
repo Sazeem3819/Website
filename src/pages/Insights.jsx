@@ -1,36 +1,42 @@
 import PageHero from '../components/PageHero.jsx'
 import CtaBand from '../components/CtaBand.jsx'
 import useReveal from '../components/useReveal.js'
-import { INSIGHTS } from '../data/services.js'
+import { INSIGHT_IDS } from '../data/services.js'
+import { useLang } from '../i18n/LanguageContext.jsx'
 
 export default function Insights() {
+  const { t } = useLang()
   const ref = useReveal('.insight-card')
+
   return (
     <main>
       <PageHero
-        eyebrow="Insights"
+        eyebrow={t.insightsPage.eyebrow}
         title={
           <>
-            Thinking out
+            {t.insightsPage.title1}
             <br />
-            <em>loud.</em>
+            <em>{t.insightsPage.titleEm}</em>
           </>
         }
-        intro="Perspectives from our engineers and designers on LED, control rooms, AV strategy and the experience economy in the Kingdom."
+        intro={t.insightsPage.intro}
       />
-      <section className="container insight-grid">
-        {INSIGHTS.map((a) => (
-          <article key={a.id} className="insight-card">
-            <span className="project-card-sector">{a.tag}</span>
-            <h2>{a.title}</h2>
-            <p>{a.blurb}</p>
-            <span className="insight-card-more" aria-hidden="true">
-              Read soon →
-            </span>
-          </article>
-        ))}
+      <section className="container insight-grid" ref={ref}>
+        {INSIGHT_IDS.map((id) => {
+          const a = t.insightsPage.items[id]
+          return (
+            <article key={id} className="insight-card">
+              <span className="project-card-sector">{a.tag}</span>
+              <h2>{a.title}</h2>
+              <p>{a.blurb}</p>
+              <span className="insight-card-more" aria-hidden="true">
+                {t.insightsPage.more} {t.arrow}
+              </span>
+            </article>
+          )
+        })}
       </section>
-      <CtaBand title="Want these in your inbox? Say hello and we'll add you." />
+      <CtaBand title={t.insightsPage.cta} />
     </main>
   )
 }

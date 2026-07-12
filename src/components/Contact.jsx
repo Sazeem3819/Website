@@ -1,9 +1,11 @@
 import { useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { CONTACT } from '../data/contact.js'
+import { useLang } from '../i18n/LanguageContext.jsx'
 
 export default function Contact() {
   const rootRef = useRef(null)
+  const { t, lang } = useLang()
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -36,27 +38,24 @@ export default function Contact() {
       )
     }, rootRef)
     return () => ctx.revert()
-  }, [])
+  }, [lang])
 
   return (
     <section ref={rootRef} className="contact" id="contact">
       <div className="contact-glow" aria-hidden="true" />
       <div className="contact-inner container">
-        <p className="section-eyebrow">Start a project</p>
+        <p className="section-eyebrow">{t.contactSection.eyebrow}</p>
         <h2 className="contact-title">
-          Let&rsquo;s build something
+          {t.contactSection.title1}
           <br />
-          <em>worth watching.</em>
+          <em>{t.contactSection.titleEm}</em>
         </h2>
-        <p className="contact-sub">
-          Tell us about your space, your audience and your ambition — we&rsquo;ll
-          bring the engineering.
-        </p>
+        <p className="contact-sub">{t.contactSection.sub}</p>
         <div className="contact-actions">
           <a className="btn btn-primary" href={`mailto:${CONTACT.email}`}>
             {CONTACT.email}
           </a>
-          <a className="btn btn-ghost" href={CONTACT.phoneHref}>
+          <a className="btn btn-ghost" href={CONTACT.phoneHref} dir="ltr">
             {CONTACT.phoneDisplay}
           </a>
           <a
@@ -65,7 +64,7 @@ export default function Contact() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            WhatsApp
+            {t.contactSection.whatsapp}
           </a>
         </div>
         <a
@@ -74,7 +73,7 @@ export default function Contact() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          {CONTACT.addressShort}
+          {t.footer.addressShort}
         </a>
       </div>
     </section>

@@ -8,5 +8,13 @@ export default defineConfig({
   build: {
     assetsInlineLimit: 4096,
     chunkSizeWarningLimit: 1024,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom', 'react-router-dom'],
+          motion: ['gsap', 'lenis'],
+        },
+      },
+    },
   },
 })

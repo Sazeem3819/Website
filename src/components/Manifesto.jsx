@@ -1,11 +1,10 @@
 import { useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
-
-const STATEMENT =
-  'We build the screens the Kingdom watches — the walls that command cities, the rooms that move audiences, and the systems behind them all.'
+import { useLang } from '../i18n/LanguageContext.jsx'
 
 export default function Manifesto() {
   const rootRef = useRef(null)
+  const { t, lang } = useLang()
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -37,14 +36,14 @@ export default function Manifesto() {
       )
     }, rootRef)
     return () => ctx.revert()
-  }, [])
+  }, [lang])
 
   return (
     <section ref={rootRef} className="manifesto">
       <div className="container">
-        <p className="manifesto-meta section-eyebrow">TSSCO — Jeddah, Saudi Arabia</p>
+        <p className="manifesto-meta section-eyebrow">{t.manifesto.meta}</p>
         <p className="manifesto-text">
-          {STATEMENT.split(' ').map((word, i) => (
+          {t.manifesto.statement.split(' ').map((word, i) => (
             <span key={i} className="manifesto-word">
               {word}{' '}
             </span>

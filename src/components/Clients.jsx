@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
-import { CLIENTS } from '../data/solutions.js'
+import { useLang } from '../i18n/LanguageContext.jsx'
 
 function LogoMark({ name }) {
   // Placeholder wordmarks — swap for real client logo assets when provided.
@@ -14,6 +14,7 @@ function LogoMark({ name }) {
 
 export default function Clients() {
   const rootRef = useRef(null)
+  const { t, lang } = useLang()
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -31,25 +32,23 @@ export default function Clients() {
       )
     }, rootRef)
     return () => ctx.revert()
-  }, [])
+  }, [lang])
 
-  const row = [...CLIENTS, ...CLIENTS, ...CLIENTS]
+  const names = t.clients.names
+  const row = [...names, ...names]
 
   return (
     <section ref={rootRef} className="clients" id="clients">
       <div className="clients-head container">
-        <p className="section-eyebrow">Trusted by</p>
+        <p className="section-eyebrow">{t.clients.eyebrow}</p>
         <h2 className="section-title">
-          Proven with the organisations
+          {t.clients.title1}
           <br />
-          that move the Kingdom.
+          {t.clients.title2}
         </h2>
-        <p className="clients-sub">
-          Project experience with leading enterprises, government entities and
-          developers across Saudi Arabia.
-        </p>
+        <p className="clients-sub">{t.clients.sub}</p>
       </div>
-      <div className="marquee" aria-label={`Clients: ${CLIENTS.join(', ')}`}>
+      <div className="marquee" aria-label={names.join(', ')}>
         <div className="marquee-track">
           {row.map((name, i) => (
             <LogoMark key={`${name}-${i}`} name={name} />

@@ -5,9 +5,15 @@ import CtaBand from '../components/CtaBand.jsx'
 import useReveal from '../components/useReveal.js'
 import { SERVICES } from '../data/services.js'
 import { asset } from '../data/solutions.js'
+import { useLang } from '../i18n/LanguageContext.jsx'
 
 function ServiceRow({ service, flip }) {
+  const { t } = useLang()
+  const copy = t.servicesPage.items[service.id]
+  const group =
+    service.group === 'deliver' ? t.servicesPage.groups.deliver : t.servicesPage.groups.solutions
   const ref = useReveal('.service-row-copy > *, .service-row-media')
+
   return (
     <article ref={ref} id={service.id} className={`service-row ${flip ? 'service-row--flip' : ''}`}>
       <div className="service-row-media">
@@ -19,16 +25,16 @@ function ServiceRow({ service, flip }) {
       </div>
       <div className="service-row-copy">
         <span className="solution-index">{service.index}</span>
-        <p className="section-eyebrow">{service.group}</p>
-        <h2 className="service-row-title">{service.title}</h2>
-        <p className="service-row-summary">{service.summary}</p>
+        <p className="section-eyebrow">{group}</p>
+        <h2 className="service-row-title">{copy.title}</h2>
+        <p className="service-row-summary">{copy.summary}</p>
         <ul className="service-row-list">
-          {service.bullets.map((b) => (
+          {copy.bullets.map((b) => (
             <li key={b}>{b}</li>
           ))}
         </ul>
         <Link className="solution-link" to="/contact">
-          Discuss your project <span aria-hidden="true">→</span>
+          {t.servicesPage.discuss} <span aria-hidden="true">{t.arrow}</span>
         </Link>
       </div>
     </article>
@@ -36,26 +42,29 @@ function ServiceRow({ service, flip }) {
 }
 
 export default function Services() {
+  const { t } = useLang()
   const jumpRef = useReveal('.service-jump a')
+
   return (
     <main>
       <PageHero
-        eyebrow="What we do"
+        eyebrow={t.servicesPage.eyebrow}
         title={
           <>
-            From first sketch
+            {t.servicesPage.title1}
             <br />
-            to flawless <em>operation.</em>
+            {t.servicesPage.title2}
+            <em>{t.servicesPage.titleEm}</em>
           </>
         }
-        intro="We design, build and support the technology behind the Kingdom's most ambitious visual environments — one accountable partner across the entire lifecycle."
+        intro={t.servicesPage.intro}
         video={asset('videos/showroom-led.mp4')}
         poster={asset('posters/showroom-led.jpg')}
       />
-      <nav ref={jumpRef} className="service-jump container" aria-label="Services">
+      <nav ref={jumpRef} className="service-jump container" aria-label={t.servicesPage.eyebrow}>
         {SERVICES.map((s) => (
           <a key={s.id} href={`#${s.id}`}>
-            {s.title}
+            {t.servicesPage.items[s.id].title}
           </a>
         ))}
       </nav>
@@ -64,7 +73,7 @@ export default function Services() {
           <ServiceRow key={s.id} service={s} flip={i % 2 === 1} />
         ))}
       </div>
-      <CtaBand title="Not sure where to start? Let's scope it together." />
+      <CtaBand title={t.servicesPage.cta} />
     </main>
   )
 }

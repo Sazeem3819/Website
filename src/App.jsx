@@ -1,23 +1,26 @@
-import { useEffect, useRef } from 'react'
+import { lazy, Suspense, useEffect, useRef } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 
+import { LanguageProvider, useLang } from './i18n/LanguageContext.jsx'
 import Nav from './components/Nav.jsx'
 import Footer from './components/Footer.jsx'
 import Home from './pages/Home.jsx'
-import Services from './pages/Services.jsx'
-import Industries from './pages/Industries.jsx'
-import Insights from './pages/Insights.jsx'
-import About from './pages/About.jsx'
-import Contact from './pages/Contact.jsx'
+
+const Services = lazy(() => import('./pages/Services.jsx'))
+const Industries = lazy(() => import('./pages/Industries.jsx'))
+const Insights = lazy(() => import('./pages/Insights.jsx'))
+const About = lazy(() => import('./pages/About.jsx'))
+const Contact = lazy(() => import('./pages/Contact.jsx'))
 
 gsap.registerPlugin(ScrollTrigger)
 
-/** Scroll to top (or the URL hash target) on every route change. */
-function ScrollManager({ lenisRef }) {
+/** Scroll to top (or the URL hash target) on route change; keep page meta in sync. */
+function ScrollAndMeta({ lenisRef }) {
   const { pathname, hash } = useLocation()
+  const { t, lang } = useLang()
 
   useEffect(() => {
     const target = hash ? document.querySelector(hash) : null
@@ -28,14 +31,20 @@ function ScrollManager({ lenisRef }) {
       if (lenisRef.current) lenisRef.current.scrollTo(0, { immediate: true })
       else window.scrollTo(0, 0)
     }
-    // New page content changes layout — recalc all scroll triggers.
     requestAnimationFrame(() => ScrollTrigger.refresh())
   }, [pathname, hash, lenisRef])
+
+  useEffect(() => {
+    const key = pathname.replaceAll('/', '')
+    document.title = t.meta.pages[key] || t.meta.title
+    const desc = document.querySelector('meta[name="description"]')
+    if (desc) desc.setAttribute('content', t.meta.description)
+  }, [pathname, t, lang])
 
   return null
 }
 
-export default function App() {
+function Shell() {
   const lenisRef = useRef(null)
 
   useEffect(() => {
@@ -65,18 +74,28 @@ export default function App() {
 
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
-      <ScrollManager lenisRef={lenisRef} />
+      <ScrollAndMeta lenisRef={lenisRef} />
       <Nav />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/industries" element={<Industries />} />
-        <Route path="/insights" element={<Insights />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="*" element={<Home />} />
-      </Routes>
+      <Suspense fallback={<div style={{ minHeight: '100svh' }} />}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/industries" element={<Industries />} />
+          <Route path="/insights" element={<Insights />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<Home />} />
+        </Routes>
+      </Suspense>
       <Footer />
     </BrowserRouter>
+  )
+}
+
+export default function App() {
+  return (
+    <LanguageProvider>
+      <Shell />
+    </LanguageProvider>
   )
 }
