@@ -230,6 +230,10 @@ export default {
         title: 'Corporate & Enterprise',
         blurb: 'Executive briefing centers, lobbies, boardrooms and workplace AV at scale.',
       },
+      healthcare: {
+        title: 'Healthcare & Hospitals',
+        blurb: 'Digital wayfinding, patient communication screens and clinical AV for modern hospitals.',
+      },
       museums: {
         title: 'Museums & Culture',
         blurb: 'Immersive galleries and storytelling environments for cultural destinations.',
@@ -241,6 +245,10 @@ export default {
       retail: {
         title: 'Retail & Exhibitions',
         blurb: 'Flagship retail media, showrooms and exhibition stands that stop traffic.',
+      },
+      education: {
+        title: 'Education',
+        blurb: 'Auditoria, lecture capture and campus-wide AV for universities and academies.',
       },
       energy: {
         title: 'Energy & Industry',

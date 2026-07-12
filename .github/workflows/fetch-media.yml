@@ -1,6 +1,6 @@
-# One-shot helper: downloads the reference-driven Seedance 2.0 clips
-# (generated via the Higgsfield MCP from client-approved stills) and commits
-# them plus extracted poster frames. Run manually via workflow_dispatch.
+# One-shot helper: downloads Higgsfield-generated media that this sandbox
+# cannot fetch directly (CDN blocked by egress policy) and commits it.
+# Currently: the eight industry-card images, converted to optimized JPGs.
 name: Fetch generated media
 
 on:
@@ -15,32 +15,32 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download Seedance clips
-        run: |
-          mkdir -p public/videos public/posters
-          base="https://d8j0ntlcm91z4.cloudfront.net/user_3G4vT0leBNeViaTHBbsao3dtR2N"
-          fetch() { curl -fsSL -o "public/videos/$1.mp4" "$base/$2.mp4" || rm -f "public/videos/$1.mp4"; }
-          fetch control-room "hf_20260706_111100_5711a9bf-adc4-4968-9859-ae90f6d92779"
-          fetch led-lobby "hf_20260706_111104_633630bc-fc64-4d96-bbc2-7b9ca998e85d"
-          fetch immersive-museum "hf_20260706_111224_07f2b633-d9d9-4f53-832d-ea12b6d3a5fa"
-          ls -lh public/videos
-
       - name: Install ffmpeg
         run: sudo apt-get update -q && sudo apt-get install -y -q ffmpeg
 
-      - name: Extract poster frames
+      - name: Download and optimize industry images
         run: |
-          for n in control-room led-lobby immersive-museum; do
-            [ -f "public/videos/$n.mp4" ] || continue
-            ffmpeg -y -i "public/videos/$n.mp4" -vf "select=eq(n\,12),scale=1600:-2" -frames:v 1 -q:v 3 "public/posters/$n.jpg"
-          done
-          ls -lh public/posters
+          mkdir -p public/images/industries /tmp/raw
+          base="https://d8j0ntlcm91z4.cloudfront.net/user_3G4vT0leBNeViaTHBbsao3dtR2N"
+          fetch() {
+            curl -fsSL -o "/tmp/raw/$1.png" "$base/$2.png"
+            ffmpeg -y -i "/tmp/raw/$1.png" -vf "scale=960:-2" -q:v 4 "public/images/industries/$1.jpg"
+          }
+          fetch government "hf_20260712_104944_efc64b8f-d706-4817-b7be-a85c2607b0d8"
+          fetch corporate "hf_20260712_104958_04b93399-f06a-4028-8a8a-bffe855768bd"
+          fetch museums "hf_20260712_105000_6a89e121-3db8-4f87-927d-6c1bfe9ba714"
+          fetch real-estate "hf_20260712_105003_fa6e53a5-c48d-4898-8e04-c847524d6257"
+          fetch retail "hf_20260712_105006_9c2a8819-684e-40b1-a129-ff48d8940544"
+          fetch energy "hf_20260712_105010_9717db9d-57d0-48c0-92c3-4ab6f8aa5b8d"
+          fetch healthcare "hf_20260712_105012_9f40663d-0f42-4148-ab2b-418d0c57362b"
+          fetch education "hf_20260712_105015_edb3f7d9-8bf5-434c-8d37-caad47d04f23"
+          ls -lh public/images/industries
 
       - name: Commit media to branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/videos public/posters
+          git add public/images
           git diff --cached --quiet && echo "Nothing to commit" && exit 0
-          git commit -m "Add reference-driven Seedance video assets and posters"
+          git commit -m "Add generated industry-card images"
           git push

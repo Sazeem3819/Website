@@ -37,12 +37,14 @@ export const SERVICES = [
 ]
 
 export const INDUSTRIES = [
-  { id: 'government', poster: asset('posters/control-room.jpg') },
-  { id: 'corporate', poster: asset('posters/led-lobby.jpg') },
-  { id: 'museums', poster: asset('posters/immersive-museum.jpg') },
-  { id: 'real-estate', poster: asset('posters/showroom-led.jpg') },
-  { id: 'retail', poster: asset('posters/showroom-led.jpg') },
-  { id: 'energy', poster: asset('posters/control-room.jpg') },
+  { id: 'government', poster: asset('images/industries/government.jpg') },
+  { id: 'corporate', poster: asset('images/industries/corporate.jpg') },
+  { id: 'healthcare', poster: asset('images/industries/healthcare.jpg') },
+  { id: 'museums', poster: asset('images/industries/museums.jpg') },
+  { id: 'real-estate', poster: asset('images/industries/real-estate.jpg') },
+  { id: 'retail', poster: asset('images/industries/retail.jpg') },
+  { id: 'education', poster: asset('images/industries/education.jpg') },
+  { id: 'energy', poster: asset('images/industries/energy.jpg') },
 ]
 
 export const INSIGHT_IDS = ['i1', 'i2', 'i3', 'i4']
