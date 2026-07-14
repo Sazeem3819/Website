@@ -250,10 +250,6 @@ export default {
         title: 'Education',
         blurb: 'Auditoria, lecture capture and campus-wide AV for universities and academies.',
       },
-      energy: {
-        title: 'Energy & Industry',
-        blurb: 'Operations centers and plant-floor visualisation for critical infrastructure.',
-      },
     },
   },
   insightsPage: {

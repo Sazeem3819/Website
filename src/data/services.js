@@ -44,7 +44,6 @@ export const INDUSTRIES = [
   { id: 'real-estate', poster: asset('images/industries/real-estate.jpg') },
   { id: 'retail', poster: asset('images/industries/retail.jpg') },
   { id: 'education', poster: asset('images/industries/education.jpg') },
-  { id: 'energy', poster: asset('images/industries/energy.jpg') },
 ]
 
 export const INSIGHT_IDS = ['i1', 'i2', 'i3', 'i4']

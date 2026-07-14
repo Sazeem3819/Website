@@ -31,7 +31,6 @@ jobs:
           fetch museums "hf_20260712_105000_6a89e121-3db8-4f87-927d-6c1bfe9ba714"
           fetch real-estate "hf_20260713_120036_1357f655-ec30-439d-8b7e-e6e9e399b737"
           fetch retail "hf_20260712_105006_9c2a8819-684e-40b1-a129-ff48d8940544"
-          fetch energy "hf_20260712_105010_9717db9d-57d0-48c0-92c3-4ab6f8aa5b8d"
           fetch healthcare "hf_20260712_105012_9f40663d-0f42-4148-ab2b-418d0c57362b"
           fetch education "hf_20260712_105015_edb3f7d9-8bf5-434c-8d37-caad47d04f23"
           ls -lh public/images/industries
