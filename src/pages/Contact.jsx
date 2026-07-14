@@ -37,11 +37,11 @@ export default function Contact() {
         <form className="contact-form" onSubmit={onSubmit}>
           <label>
             {f.name}
-            <input type="text" required value={form.name} onChange={set('name')} placeholder={f.namePh} />
+            <input type="text" required autoComplete="name" value={form.name} onChange={set('name')} placeholder={f.namePh} />
           </label>
           <label>
             {f.email}
-            <input type="email" required value={form.email} onChange={set('email')} placeholder={f.emailPh} />
+            <input type="email" required autoComplete="email" value={form.email} onChange={set('email')} placeholder={f.emailPh} />
           </label>
           <label>
             {f.project}

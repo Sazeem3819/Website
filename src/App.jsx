@@ -21,6 +21,7 @@ gsap.registerPlugin(ScrollTrigger)
 function ScrollAndMeta({ lenisRef }) {
   const { pathname, hash } = useLocation()
   const { t, lang } = useLang()
+  const firstRender = useRef(true)
 
   useEffect(() => {
     const target = hash ? document.querySelector(hash) : null
@@ -31,6 +32,15 @@ function ScrollAndMeta({ lenisRef }) {
       if (lenisRef.current) lenisRef.current.scrollTo(0, { immediate: true })
       else window.scrollTo(0, 0)
     }
+    // Mark the content landmark for the skip link, and on route changes
+    // (not initial load) hand keyboard/screen-reader focus to it (WCAG).
+    const main = document.querySelector('main')
+    if (main) {
+      main.setAttribute('tabindex', '-1')
+      main.setAttribute('id', 'main')
+      if (!firstRender.current) main.focus({ preventScroll: true })
+    }
+    firstRender.current = false
     requestAnimationFrame(() => ScrollTrigger.refresh())
   }, [pathname, hash, lenisRef])
 
@@ -42,6 +52,15 @@ function ScrollAndMeta({ lenisRef }) {
   }, [pathname, t, lang])
 
   return null
+}
+
+function SkipLink() {
+  const { lang } = useLang()
+  return (
+    <a className="skip-link" href="#main">
+      {lang === 'ar' ? 'تخطَّ إلى المحتوى' : 'Skip to content'}
+    </a>
+  )
 }
 
 function Shell() {
@@ -75,6 +94,7 @@ function Shell() {
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
       <ScrollAndMeta lenisRef={lenisRef} />
+      <SkipLink />
       <Nav />
       <Suspense fallback={<div style={{ minHeight: '100svh' }} />}>
         <Routes>
