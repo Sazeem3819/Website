@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sazeem3819.github.io/Website/sitemap.xml
