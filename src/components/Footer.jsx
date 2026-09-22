@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { CONTACT } from '../data/contact.js'
 import { useLang } from '../i18n/LanguageContext.jsx'
+import { asset } from '../data/solutions.js'
 
 export default function Footer() {
   const { t } = useLang()
@@ -22,12 +23,13 @@ export default function Footer() {
     <footer className="footer">
       <div className="container footer-grid">
         <div className="footer-brand">
-          <span className="logo-word">
-            TSSC
-            <span className="logo-o">
-              O<span className="logo-dot" />
-            </span>
-          </span>
+          <img
+            className="logo-img footer-logo"
+            src={asset('logo/tssco-wordmark.svg')}
+            alt="TSSCO"
+            width="150"
+            height="24"
+          />
           <p>{t.footer.tagline}</p>
           <a
             className="footer-loc"

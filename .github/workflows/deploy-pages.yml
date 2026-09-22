@@ -29,7 +29,8 @@ jobs:
       - name: Build
         run: |
           npm ci
-          VITE_BASE=/Website/ npm run build
+          # Served from the domain root now (no /Website/ subpath).
+          npm run build
           # SPA fallback so deep links (/services, /insights, …) resolve on Pages.
           cp dist/index.html dist/404.html
 
@@ -39,3 +40,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
           force_orphan: true
+          # Custom domain — written on every deploy so force_orphan can't drop it.
+          # Change if the site's domain differs (e.g. www.tssco.org).
+          cname: tssco.org

@@ -172,6 +172,28 @@ main:focus {
   border-radius: 1px;
 }
 
+.logo {
+  display: inline-flex;
+  align-items: center;
+}
+
+.logo-img {
+  display: block;
+  height: 21px;
+  width: auto;
+}
+
+.footer-logo {
+  height: 26px;
+  margin-bottom: 0.2rem;
+}
+
+@media (max-width: 560px) {
+  .logo-img {
+    height: 19px;
+  }
+}
+
 /* —— nav —— */
 
 .nav {

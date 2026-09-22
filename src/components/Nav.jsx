@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { useLang } from '../i18n/LanguageContext.jsx'
+import { asset } from '../data/solutions.js'
 
 function Logo() {
   return (
     <Link to="/" className="logo" aria-label="TSSCO — home">
-      <span className="logo-word">
-        TSSC
-        <span className="logo-o">
-          O<span className="logo-dot" />
-        </span>
-      </span>
+      <img
+        className="logo-img"
+        src={asset('logo/tssco-wordmark.svg')}
+        alt="TSSCO"
+        width="132"
+        height="21"
+      />
     </Link>
   )
 }

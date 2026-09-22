@@ -2,7 +2,8 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  // Overridable for subpath hosting (e.g. GitHub Pages: VITE_BASE=/Website/).
+  // Served from the domain root (custom domain). Override with VITE_BASE only
+  // if hosting under a subpath again (e.g. VITE_BASE=/Website/).
   base: process.env.VITE_BASE || '/',
   plugins: [react()],
   build: {
