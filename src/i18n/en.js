@@ -83,7 +83,6 @@ export default {
       'Saudi German Hospital',
       'DAR Global',
       'stc',
-      'King Faisal Specialist Hospital',
     ],
   },
   contactSection: {
